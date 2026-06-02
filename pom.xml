@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.stefanofornari</groupId>
     <artifactId>nb-ide-restart</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>nbm</packaging>
 
-    <name>NetBeans IDE Restart</name>
+    <name>NetBeans Restart</name>
     <description>NetBeans plug-in that adds a Restart action to the File menu (File → Restart) with Ctrl+Alt+Backspace shortcut</description>
     <url>https://github.com/stefanofornari/nb-restart</url>
 
@@ -24,12 +24,11 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
         <netbeans.version>RELEASE290</netbeans.version>
-        <testfx.version>4.0.18</testfx.version>
-        <javafx-toolkit.version>0.0.5-SNAPSHOT</javafx-toolkit.version>
     </properties>
 
     <build>
@@ -78,36 +77,30 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <forkCount>1</forkCount>
-                    <reuseForks>false</reuseForks>
-                    <!-- JVM options required for headless testing -->
+                    <!-- JVM options required for module system reflection issues -->
+                    <argLine>--add-opens=java.base/java.net=ALL-UNNAMED</argLine>
+                    <argLine>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</argLine>
+                    <argLine>--add-exports=java.desktop/sun.java2d=ALL-UNNAMED</argLine>
                     <argLine>
                         --add-opens=java.base/java.net=ALL-UNNAMED
                         --add-opens=java.desktop/sun.awt=ALL-UNNAMED
                         --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED
                         --add-opens=java.desktop/java.awt=ALL-UNNAMED
                         --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
-                        --add-opens=java.base/java.lang=ALL-UNNAMED
-                        --add-opens=java.base/java.util=ALL-UNNAMED
                         --add-opens=java.desktop/sun.java2d=ALL-UNNAMED
                         --add-exports=java.desktop/sun.java2d=ALL-UNNAMED
                         --add-exports=java.desktop/sun.awt.image=ALL-UNNAMED
                         --add-exports=java.desktop/java.awt.peer=ALL-UNNAMED
                         --add-exports=java.desktop/sun.awt.event=ALL-UNNAMED
                         --add-exports=java.base/sun.security.action=ALL-UNNAMED
-                        -Dmonocle.platform.headless.width=1024
-                        -Dmonocle.platform.headless.height=768
-                        -Dprism.order=sw
-                        -Dtestfx.robot=glass
-                        -Dtestfx.headless=true      <!-- false to show UI -->
-                        <!-- comment out to show UI -->
-                        -Dglass.platform=Monocle
-                        -Dmonocle.platform=Headless
-                        <!-- -->
                     </argLine>
+
+                    <!-- Include/exclude test patterns -->
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+
+                    <!-- Pass system properties to tests -->
                     <systemPropertyVariables>
                         <env>test</env>
                         <jdk.module.access>open</jdk.module.access>
@@ -115,8 +108,12 @@
                         <java.awt.graphicsenv>com.github.caciocavallosilano.cacio.ctc.CTCGraphicsEnvironment</java.awt.graphicsenv>
                         <java.awt.headless>false</java.awt.headless>
                     </systemPropertyVariables>
+
+                    <!-- Display full stack traces for easier debugging -->
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <printSummary>true</printSummary>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
             <plugin>
@@ -243,11 +240,6 @@
             <artifactId>org-openide-modules</artifactId>
             <version>${netbeans.version}</version>
         </dependency>
-       <dependency>
-            <groupId>com.github.stefanofornari</groupId>
-            <artifactId>nb-javafx-toolkit</artifactId>
-            <version>${javafx-toolkit.version}</version>
-        </dependency>
 
         <!-- Testing dependencies -->
         <dependency>
@@ -280,30 +272,12 @@
             <version>3.17.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>testfx-core</artifactId>
-            <version>${testfx.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>testfx-junit5</artifactId>
-            <version>${testfx.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testfx</groupId>
-            <artifactId>openjfx-monocle</artifactId>
-            <version>21.0.2</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <scm>
         <connection>scm:git:git@github.com:stefanofornari/nb-restart.git</connection>
         <url>https://github.com/stefanofornari/nb-restart</url>
-        <tag>nb-ide-restart-0.0.2</tag>
+        <tag>nb-ide-restart-0.0.0</tag>
     </scm>
 
     <distributionManagement>
