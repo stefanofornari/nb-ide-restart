@@ -137,6 +137,7 @@ public class RestartDialog extends VBox {
 
     @FXML
     private void handleCancel() {
+        countdownTimer.stop();
         closeWindow();
     }
 
