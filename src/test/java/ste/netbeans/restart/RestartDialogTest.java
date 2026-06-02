@@ -113,4 +113,15 @@ public class RestartDialogTest {
         then(dialog.getScene().getWindow().isShowing()).isFalse();
         then(restartTriggered.get()).isFalse();
     }
+
+    @Test
+    public void cancel_button_closes_dialog_and_waits_to_ensure_no_delayed_restart(FxRobot robot) throws InterruptedException {
+        robot.clickOn("#cancelButton");
+
+        // Wait to make sure no timer kicks in
+        Thread.sleep(2000);
+
+        then(dialog.getScene().getWindow().isShowing()).isFalse();
+        then(restartTriggered.get()).isFalse();
+    }
 }
