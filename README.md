@@ -70,6 +70,15 @@ target/restart-ide-1.0.0.nbm
 
 NetBeans will save open files (prompting for unsaved changes as usual) and then restart automatically.
 
+### Resetting Preferences
+
+If you have selected **"Restart Now and Don’t Ask Again"** and wish to re-enable the confirmation dialog, you can manually reset the preference:
+
+1. Close NetBeans.
+2. Locate the NetBeans user directory (typically `~/.netbeans/<version>/config/Preferences/ste/netbeans/ide/restart.properties`).
+3. Delete the file or remove the line containing `confirm=no`.
+4. Restart NetBeans.
+
 ---
 
 ## Publishing to the NetBeans Plugin Portal
