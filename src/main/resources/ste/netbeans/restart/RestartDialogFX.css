@@ -1,0 +1,61 @@
+.restart-button {
+    -fx-background-color: #cf1f25 !important;
+    -fx-background-radius: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-width: 0 !important;
+}
+
+/* The main button part of the SplitMenuButton */
+.restart-button > .label {
+    -fx-background-color: #cf1f25 !important;
+    -fx-background-radius: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-text-fill: white !important;
+    -fx-border-width: 0 !important;
+}
+
+/* The arrow button part */
+.restart-button > .arrow-button {
+    -fx-background-color: #cf1f25 !important;
+    -fx-background-radius: 0 !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-width: 0 !important;
+}
+
+.restart-button > .arrow-button > .arrow {
+    -fx-background-color: white !important;
+}
+
+/* Hover states */
+.restart-button:hover,
+.restart-button:hover > .label,
+.restart-button:hover > .arrow-button,
+.restart-button > .arrow-button:hover {
+    -fx-background-color: #e02a31 !important;
+    -fx-background-insets: 0 !important;
+}
+
+/* Ensure white text on hover */
+.restart-button:hover > .label,
+.restart-button > .label:hover {
+    -fx-text-fill: white !important;
+}
+
+/* Context Menu (dropdown) styling */
+.context-menu {
+    -fx-background-color: white;
+    -fx-border-color: #cf1f25;
+    -fx-border-width: 1;
+}
+
+.menu-item .label {
+    -fx-text-fill: #333333;
+}
+
+.menu-item:focused {
+    -fx-background-color: #cf1f25;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
