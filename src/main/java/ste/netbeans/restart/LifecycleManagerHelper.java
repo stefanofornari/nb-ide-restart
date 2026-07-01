@@ -15,6 +15,7 @@
  */
 package ste.netbeans.restart;
 
+import javax.swing.SwingUtilities;
 import org.openide.LifecycleManager;
 import org.openide.util.Exceptions;
 
@@ -49,6 +50,6 @@ public final class LifecycleManagerHelper {
             // Platform does not support restart; log and fall back to exit.
             Exceptions.printStackTrace(ex);
         }
-        lm.exit();
+        SwingUtilities.invokeLater(() -> lm.exit());
     }
 }

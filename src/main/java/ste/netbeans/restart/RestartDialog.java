@@ -110,16 +110,19 @@ public class RestartDialog extends VBox {
         if (secondsLeft > 0) {
             countdownLabel.setText(String.valueOf(secondsLeft));
         } else {
-            countdownTimer.stop();
             handleRestart();
         }
     }
 
     @FXML
     private void handleRestart() {
-        countdownTimer.stop();
-        closeWindow();
+        Platform.runLater(() -> {
+            countdownTimer.stop();
+            closeWindow();
+        });
+                
         if (restartCallback != null) {
+            Platform.setImplicitExit(false);
             Platform.runLater(() -> restartCallback.run());
         }
     }
