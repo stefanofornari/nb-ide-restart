@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.0.3] - 2026-07-01
+
+### Fixed
+- Issue #11 Restart hangs NB on MacOS
+
 ## [0.0.2] - 2026-06-02
 
 ### Added
