@@ -15,7 +15,6 @@
  */
 package ste.netbeans.restart;
 
-import atlantafx.base.theme.NordLight;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -93,11 +92,6 @@ public class RestartDialog extends VBox {
             }
         });
 
-        getStylesheets().addAll(
-            new NordLight().getUserAgentStylesheet(),
-            "ste/netbeans/restart/RestartDialogFX.css"
-        );
-
         countdownLabel.setText(String.valueOf(secondsLeft));
 
         this.countdownTimer = new Timeline(new KeyFrame(Duration.seconds(1), e -> tick()));
@@ -120,7 +114,7 @@ public class RestartDialog extends VBox {
             countdownTimer.stop();
             closeWindow();
         });
-                
+
         if (restartCallback != null) {
             Platform.setImplicitExit(false);
             Platform.runLater(() -> restartCallback.run());
