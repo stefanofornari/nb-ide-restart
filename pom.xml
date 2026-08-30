@@ -30,7 +30,8 @@
         <maven.compiler.release>21</maven.compiler.release>
         <netbeans.version>RELEASE290</netbeans.version>
         <testfx.version>4.0.18</testfx.version>
-        <javafx-toolkit.version>0.0.8-SNAPSHOT</javafx-toolkit.version>
+        <javafx.version>23.0.2</javafx.version>
+        <javafx-toolkit.version>0.0.10-SNAPSHOT</javafx-toolkit.version>
     </properties>
 
     <build>
@@ -51,6 +52,11 @@
                 <version>3.15.0</version>
                 <configuration>
                     <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.netbeans.api</groupId>
+                            <artifactId>org-openide-modules</artifactId>
+                            <version>${netbeans.version}</version>
+                        </path>
                         <path>
                             <groupId>org.netbeans.api</groupId>
                             <artifactId>org-openide-util-lookup</artifactId>
@@ -103,11 +109,11 @@
                         -Dmonocle.platform.headless.height=768
                         -Dprism.order=sw
                         -Dtestfx.robot=glass
-                        -Dtestfx.headless=true      <!-- false to show UI -->
-                        <!-- comment out to show UI -->
+                        -Dtestfx.headless=false      <!-- false to show UI -->
+                        <!-- comment out to show UI>
                         -Dglass.platform=Monocle
                         -Dmonocle.platform=Headless
-                        <!-- -->
+                        <-->
                     </argLine>
                     <systemPropertyVariables>
                         <env>test</env>
@@ -181,11 +187,6 @@
         </dependency>
         <dependency>
             <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-awt</artifactId>
-            <version>${netbeans.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-windows</artifactId>
             <version>${netbeans.version}</version>
         </dependency>
@@ -244,10 +245,53 @@
             <artifactId>org-openide-modules</artifactId>
             <version>${netbeans.version}</version>
         </dependency>
-       <dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-libs-javafx</artifactId>
+            <version>${netbeans.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.stefanofornari</groupId>
             <artifactId>nb-javafx-toolkit</artifactId>
             <version>${javafx-toolkit.version}</version>
+        </dependency>
+        
+        <!-- JavaFX dependencies -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>${javafx.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Testing dependencies -->

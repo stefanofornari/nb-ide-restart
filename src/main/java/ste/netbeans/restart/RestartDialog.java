@@ -15,7 +15,6 @@
  */
 package ste.netbeans.restart;
 
-import atlantafx.base.theme.NordLight;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -23,7 +22,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -51,10 +52,13 @@ public class RestartDialog extends VBox {
     private SplitMenuButton actions;
 
     @FXML
+    private MenuItem dontAskAgainMenuItem;
+
+    @FXML
     private Button cancelButton;
 
     @FXML
-    private javafx.scene.image.ImageView warningIcon;
+    private ImageView warningIcon;
 
     /**
      * Constructor with default 30 seconds countdown and modality.
@@ -93,16 +97,28 @@ public class RestartDialog extends VBox {
             }
         });
 
+        /*
         getStylesheets().addAll(
             new NordLight().getUserAgentStylesheet(),
             "ste/netbeans/restart/RestartDialogFX.css"
         );
+        */
 
         countdownLabel.setText(String.valueOf(secondsLeft));
 
         this.countdownTimer = new Timeline(new KeyFrame(Duration.seconds(1), e -> tick()));
         this.countdownTimer.setCycleCount(Timeline.INDEFINITE);
         this.countdownTimer.play();
+
+        dontAskAgainMenuItem.setOnAction((e) -> {
+            org.openide.util.NbPreferences.forModule(RestartDialog.class).put(PREFERENCE_KEY, PREFERENCE_DO_NOT_CONFIRM);
+            try {
+                org.openide.util.NbPreferences.forModule(RestartDialog.class).flush();
+            } catch (java.util.prefs.BackingStoreException x) {
+                // ignore
+            }
+            handleRestart();
+        });
     }
 
     private void tick() {
@@ -120,22 +136,11 @@ public class RestartDialog extends VBox {
             countdownTimer.stop();
             closeWindow();
         });
-                
+
         if (restartCallback != null) {
             Platform.setImplicitExit(false);
             Platform.runLater(() -> restartCallback.run());
         }
-    }
-
-    @FXML
-    private void handleRestartDoNotAskAgain() {
-        org.openide.util.NbPreferences.forModule(RestartDialog.class).put(PREFERENCE_KEY, PREFERENCE_DO_NOT_CONFIRM);
-        try {
-            org.openide.util.NbPreferences.forModule(RestartDialog.class).flush();
-        } catch (java.util.prefs.BackingStoreException e) {
-            // ignore
-        }
-        handleRestart();
     }
 
     @FXML
