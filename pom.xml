@@ -31,7 +31,7 @@
         <netbeans.version>RELEASE290</netbeans.version>
         <testfx.version>4.0.18</testfx.version>
         <javafx.version>23.0.2</javafx.version>
-        <javafx-toolkit.version>0.0.10-SNAPSHOT</javafx-toolkit.version>
+        <javafx-toolkit.version>0.1.0</javafx-toolkit.version>
     </properties>
 
     <build>
@@ -255,7 +255,7 @@
             <artifactId>nb-javafx-toolkit</artifactId>
             <version>${javafx-toolkit.version}</version>
         </dependency>
-        
+
         <!-- JavaFX dependencies -->
         <dependency>
             <groupId>org.openjfx</groupId>
